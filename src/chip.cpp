@@ -154,22 +154,27 @@ void cc8::Chip::run()
 {
 	bool quit = false;
 	while (!quit) {
-		switch (m_mode) {
-			case Mode::Command:
-				command();
-				break;
+		try {
+			switch (m_mode) {
+				case Mode::Command:
+					command();
+					break;
 
-			case Mode::Edit:
-				edit();
-				break;
+				case Mode::Edit:
+					edit();
+					break;
 
-			case Mode::Program:
-				program();
-				break;
+				case Mode::Program:
+					program();
+					break;
 
-			case Mode::Quit:
-				quit = true;
-				break;
+				case Mode::Quit:
+					quit = true;
+					break;
+			}
+		}
+		catch (std::runtime_error& e) {
+			// runtime_error s are probably input errors, so ignore them
 		}
 	}
 }

@@ -153,9 +153,18 @@ void cc8::Chip::program()
 					m_address += m_registers[(opcode >> 8) & 0x000F] - 2;
 					break;
 				case 0x29:
-					m_address = 0x0800 + ((opcode >> 4) & 0x00F0);
+					{
+						unsigned char x = m_registers[(opcode >> 8) & 0x000F];
+						m_address = 0x0800 + ((x << 4) & 0x00F0);
+					}
 					break;
 				case 0x33:
+					{
+						unsigned char x = m_registers[(opcode >> 8) & 0x000F];
+						m_memory[m_address] = x%10;
+						m_memory[m_address + 1] = (x/10)%10;
+						m_memory[m_address + 2] = (x/100)%10;
+					}
 					break;
 				case 0x55:
 					for (unsigned char i = 0; i <= ((opcode >> 8) & 0x000F); ++i) {
@@ -164,7 +173,7 @@ void cc8::Chip::program()
 					break;
 				case 0x65:
 					for (unsigned char i = 0; i <= ((opcode >> 8) & 0x000F); ++i) {
-						m_registers[i] = m_memory[m_address + i + 1];
+						m_registers[((opcode >> 8) & 0x000F) - i] = m_memory[m_address + i];
 					}
 					break;
 				default:
