@@ -2,11 +2,10 @@
 
 A terminal based CHIP-8 emulator as per these resources:
 
-+------------------------+
-| [mattmikolay/chip-8](https://github.com/mattmikolay/chip-8/wiki/Mastering-CHIP%E2%80%908) |
-+------------------------+
-|[https://chip-8.com/info](https://storage.googleapis.com/wzukusers/user-34724694/documents/5ddc61256d08cO18xs1R/CHIP-8%20Instruction%20Set%20%28Classic%29.pdf)|
-+------------------------+
+Resources | link
+--------- | -----
+mattmikolay/chip-8 | [https://github.com/mattmikolay/chip-8](https://github.com/mattmikolay/chip-8/wiki/Mastering-CHIP%E2%80%908)
+chip-8.com | [https://chip-8.com/info](https://storage.googleapis.com/wzukusers/user-34724694/documents/5ddc61256d08cO18xs1R/CHIP-8%20Instruction%20Set%20%28Classic%29.pdf)
 
 > It only works in Linux because of library dependencies :V
 
@@ -29,6 +28,6 @@ Then, just run it with one of the two example files (or copy and make one your o
 : Translates the value stored in register `3`.
 
 ```bash
-./build/cc8 examples/<example>.c8
+./build/cc8 examples/banana.c8
 ```
 
