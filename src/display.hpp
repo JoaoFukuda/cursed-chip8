@@ -1,21 +1,22 @@
 #pragma once
 
 #include <array>
+#include <thread>
 
-namespace cc8
-{
-	class Display
-	{
+namespace cc8 {
+	class Display {
+		bool quit = false;
 		std::array<unsigned char, 0x0100> m_memory;
+		std::thread m_update_thread;
 
-		public:
-			Display();
-			~Display();
+		void show() const;
+		void update_loop() const;
 
-			unsigned char& operator[](unsigned short position);
-			unsigned char operator[](unsigned short position) const;
+	 public:
+		Display();
+		~Display();
 
-			void show() const;
-			void clear();
+		unsigned char& operator[](unsigned short position);
+		unsigned char operator[](unsigned short position) const;
 	};
 }

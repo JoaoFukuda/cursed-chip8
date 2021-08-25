@@ -1,10 +1,9 @@
 #include "memory.hpp"
 
-#include <stdexcept>
-#include <random>
-
-#include <sys/mman.h>
 #include <fcntl.h>
+#include <random>
+#include <stdexcept>
+#include <sys/mman.h>
 #include <unistd.h>
 
 cc8::Memory::Memory(const std::string& filename)
@@ -23,9 +22,8 @@ cc8::Memory::Memory(const std::string& filename)
 		throw std::runtime_error("Memory file is not 65536 bytes in size");
 	}
 
-	m_memory = reinterpret_cast<unsigned char*>(
-			mmap(nullptr, m_memory_len, PROT_READ | PROT_WRITE, MAP_PRIVATE,
-				m_fd, 0));
+	m_memory = reinterpret_cast<unsigned char*>(mmap(
+	    nullptr, m_memory_len, PROT_READ | PROT_WRITE, MAP_PRIVATE, m_fd, 0));
 	if (m_memory == MAP_FAILED) {
 		close(m_fd);
 		throw std::runtime_error("Could not map file to memory");

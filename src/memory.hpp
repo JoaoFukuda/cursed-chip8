@@ -11,15 +11,15 @@ namespace cc8 {
 
 		Display m_display;
 
-		public:
-			Memory() = delete;
-			Memory(const std::string& filename);
-			~Memory();
+	 public:
+		Memory() = delete;
+		Memory(const std::string& filename);
+		~Memory();
 
-			unsigned char& operator[](unsigned short position);
-			unsigned char operator[](unsigned short position) const;
+		unsigned char& operator[](unsigned short position);
+		unsigned char operator[](unsigned short position) const;
 
-			Display& get_display();
-			unsigned short get_instruction(unsigned short) const;
+		Display& get_display();
+		unsigned short get_instruction(unsigned short) const;
 	};
 }

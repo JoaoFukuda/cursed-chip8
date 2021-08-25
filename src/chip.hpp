@@ -2,12 +2,11 @@
 
 #include "memory.hpp"
 
-#include <string>
 #include <array>
 #include <random>
+#include <string>
 
-namespace cc8
-{
+namespace cc8 {
 	class Chip {
 		enum class Mode
 		{
@@ -31,13 +30,14 @@ namespace cc8
 		void program();
 
 		void draw(unsigned short x, unsigned short y, unsigned char len);
-		void draw_char(unsigned short x, unsigned short y, unsigned char len, unsigned char c);
+		void draw_char(unsigned short x, unsigned short y, unsigned char len,
+		               unsigned char c);
 		void draw_info(bool draw_value = false);
 
-		public:
-			Chip(const std::string& filename);
-			~Chip();
+	 public:
+		Chip(const std::string& filename);
+		~Chip();
 
-			void run();
+		void run();
 	};
 }

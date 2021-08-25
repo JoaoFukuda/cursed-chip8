@@ -52,17 +52,18 @@ void cc8::Chip::draw_info(bool draw_value)
 {
 	for (unsigned char y = 23; y < 32; ++y) {
 		for (unsigned char x = 0; x < 8; ++x) {
-			m_memory[0x0100 + (y*8) + x] = 0xFF;
+			m_memory[0x0100 + (y * 8) + x] = 0xFF;
 		}
 	}
 
 	for (unsigned char i = 0; i < 4; ++i) {
-		draw_char(0x0A + (i * 0x05), 25, 5, (m_address >> (3 - i)*4) & 0x000F);
+		draw_char(0x0A + (i * 0x05), 25, 5, (m_address >> (3 - i) * 4) & 0x000F);
 	}
 
 	if (draw_value) {
 		for (unsigned char i = 0; i < 2; ++i) {
-			draw_char(0x25 + (i * 0x05), 25, 5, (m_memory[m_address] >> (1 - i)*4) & 0x000F);
+			draw_char(0x25 + (i * 0x05), 25, 5,
+			          (m_memory[m_address] >> (1 - i) * 4) & 0x000F);
 		}
 	}
 }
@@ -70,7 +71,6 @@ void cc8::Chip::draw_info(bool draw_value)
 void cc8::Chip::command()
 {
 	draw_info();
-	m_memory.get_display().show();
 	char input = std::getchar();
 	switch (input) {
 		case 0x1b:
@@ -106,8 +106,8 @@ void cc8::Chip::command()
 			m_address = (char_to_hex(input) << 12) + (m_address & 0x0FFF);
 			for (unsigned char i = 1; i < 4; ++i) {
 				draw_info();
-				m_memory.get_display().show();
-				m_address = (char_to_hex(std::getchar()) << (12 - i*4)) + (m_address & ~(0xF << (12 - i*4)));
+				m_address = (char_to_hex(std::getchar()) << (12 - i * 4)) +
+				            (m_address & ~(0xF << (12 - i * 4)));
 			}
 			break;
 	}
@@ -116,7 +116,6 @@ void cc8::Chip::command()
 void cc8::Chip::edit()
 {
 	draw_info(true);
-	m_memory.get_display().show();
 	char input = std::getchar();
 	switch (input) {
 		case 0x1b:
@@ -134,21 +133,19 @@ void cc8::Chip::edit()
 				throw std::runtime_error("Input not defined");
 			break;
 		default:
-			m_memory[m_address] = (char_to_hex(input) << 4) + (m_memory[m_address] & 0x0F);
+			m_memory[m_address] =
+			    (char_to_hex(input) << 4) + (m_memory[m_address] & 0x0F);
 			draw_info(true);
-			m_memory.get_display().show();
-			m_memory[m_address] = char_to_hex(std::getchar()) + (m_memory[m_address] & 0xF0);
+			m_memory[m_address] =
+			    char_to_hex(std::getchar()) + (m_memory[m_address] & 0xF0);
 			++m_address;
 			break;
 	}
 }
 
-cc8::Chip::Chip(const std::string& filename)
-	: m_memory(filename)
-{ }
+cc8::Chip::Chip(const std::string& filename) : m_memory(filename) { }
 
-cc8::Chip::~Chip()
-{ }
+cc8::Chip::~Chip() { }
 
 void cc8::Chip::run()
 {
