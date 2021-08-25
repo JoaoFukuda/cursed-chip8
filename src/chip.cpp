@@ -73,29 +73,34 @@ void cc8::Chip::command()
 	m_memory.get_display().show();
 	char input = std::getchar();
 	switch (input) {
-		case 'o':
-			switch (std::getchar()) {
-				case '0':
-					m_mode = Mode::Edit;
-					break;
-				case '1':
-					// SAVE TO EEPROM
-					break;
-				case '2':
-					// LOAD FROM EEPROM
-					break;
-				case '3':
-					m_stack_pointer = 0x0000;
-					m_program_counter = 0x0200;
-					m_mode = Mode::Program;
-					break;
+		case 0x1b:
+			if (std::getchar() == 'O') {
+				switch (std::getchar()) {
+					case 'P':
+						switch (std::getchar()) {
+							case '0':
+								m_mode = Mode::Edit;
+								break;
+							case '1':
+								// SAVE TO EEPROM
+								break;
+							case '2':
+								// LOAD FROM EEPROM
+								break;
+							case '3':
+								m_stack_pointer = 0x0000;
+								m_program_counter = 0x0200;
+								m_mode = Mode::Program;
+								break;
+						}
+						break;
+					case 'Q':
+						m_mode = Mode::Quit;
+						break;
+				}
 			}
-			break;
-		case 't':
-			// RESET MONITOR
-			break;
-		case 'q':
-			m_mode = Mode::Quit;
+			else
+				throw std::runtime_error("Input not defined");
 			break;
 		default:
 			m_address = (char_to_hex(input) << 12) + (m_address & 0x0FFF);
@@ -114,11 +119,19 @@ void cc8::Chip::edit()
 	m_memory.get_display().show();
 	char input = std::getchar();
 	switch (input) {
-		case 'o':
-			++m_address;
-			break;
-		case 't':
-			m_mode = Mode::Command;
+		case 0x1b:
+			if (std::getchar() == 'O') {
+				switch (std::getchar()) {
+					case 'P':
+						++m_address;
+						break;
+					case 'Q':
+						m_mode = Mode::Command;
+						break;
+				}
+			}
+			else
+				throw std::runtime_error("Input not defined");
 			break;
 		default:
 			m_memory[m_address] = (char_to_hex(input) << 4) + (m_memory[m_address] & 0x0F);
