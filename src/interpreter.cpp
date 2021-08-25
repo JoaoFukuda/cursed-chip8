@@ -128,7 +128,8 @@ void cc8::Chip::program()
 			m_program_counter = m_registers[0] + (opcode & 0x0FFF) - 2;
 		}
 		else if (most_significant_hw == 0xC) {
-			// m_registers[(opcode >> 8) & 0x000F] = dist(rd) & (opcode & 0x00FF);
+			// TODO: RNG
+			// m_registers[(opcode >> 8) & 0x000F] = random() & (opcode & 0x00FF);
 		}
 		else if (most_significant_hw == 0xD) {
 			unsigned char x = m_registers[(opcode >> 8) & 0x000F],
@@ -137,7 +138,7 @@ void cc8::Chip::program()
 			draw(x, y, len);
 		}
 		else if (most_significant_hw == 0xE) {
-			// HALP
+			// TODO: Non-block input
 		}
 		else if (most_significant_hw == 0xF) {
 			switch (opcode & 0x00FF) {
