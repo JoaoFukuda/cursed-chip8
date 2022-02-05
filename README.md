@@ -17,7 +17,7 @@ First, clone and compile it with `cmake`:
 git clone https://github.com/JoaoFukuda/cursed-chip8.git
 cd cursed-chip8
 mkdir build && cmake -B build/ .
-make -C build/
+cmake --build build/
 ```
 
 Then, just run it with one of the two example files (or copy and make one your own).
