@@ -76,7 +76,7 @@ void cc8::Chip::command()
 		case 0x1b:
 			if (std::getchar() == 'O') {
 				switch (std::getchar()) {
-					case 'P':
+					case 'P': // F1 button
 						switch (std::getchar()) {
 							case '0':
 								m_mode = Mode::Edit;
@@ -94,7 +94,7 @@ void cc8::Chip::command()
 								break;
 						}
 						break;
-					case 'Q':
+					case 'Q': // F2 button
 						m_mode = Mode::Quit;
 						break;
 				}

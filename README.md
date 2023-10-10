@@ -31,3 +31,14 @@ Then, just run it with one of the two example files (or copy and make one your o
 ./build/cc8 examples/banana.c8
 ```
 
+## Inputs
+
+After starting the program, interact with it through the function keys.
+
+You start the emulation on command mode. To enter program mode and run the program, press `F1` then `3`. To return to command mode, press `F2`.
+
+To enter edit mode, press `F1` then `0` on command mode, to exit press `F2`.
+
+Press `F2` on command mode to exit the emulator.
+
+All inputs are made through the `0-9a-z` keys.
